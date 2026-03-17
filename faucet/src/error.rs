@@ -26,8 +26,8 @@ impl IntoResponse for ProblemDetail {
 impl ProblemDetail {
     pub fn invalid_address(reason: &str) -> Self {
         Self {
-            r#type: "https://stellar.org/horizon-errors/bad_request".into(),
-            title: "Invalid Address".into(),
+            r#type: "https://stellar.org/friendbot-errors/bad_request".into(),
+            title: "Bad Request".into(),
             status: 400,
             detail: reason.to_string(),
         }
@@ -35,8 +35,8 @@ impl ProblemDetail {
 
     pub fn already_pending(addr: &str) -> Self {
         Self {
-            r#type: "https://stellar.org/horizon-errors/conflict".into(),
-            title: "Already Pending".into(),
+            r#type: "https://stellar.org/friendbot-errors/bad_request".into(),
+            title: "Bad Request".into(),
             status: 409,
             detail: format!("Address {addr} is already in the pending queue"),
         }
@@ -44,8 +44,8 @@ impl ProblemDetail {
 
     pub fn queue_full() -> Self {
         Self {
-            r#type: "https://stellar.org/horizon-errors/service_unavailable".into(),
-            title: "Queue Full".into(),
+            r#type: "https://stellar.org/friendbot-errors/bad_request".into(),
+            title: "Bad Request".into(),
             status: 503,
             detail: "The faucet queue is full, please try again later".into(),
         }
@@ -53,7 +53,7 @@ impl ProblemDetail {
 
     pub fn internal(msg: impl Into<String>) -> Self {
         Self {
-            r#type: "https://stellar.org/horizon-errors/internal_server_error".into(),
+            r#type: "https://stellar.org/friendbot-errors/internal_server_error".into(),
             title: "Internal Server Error".into(),
             status: 500,
             detail: msg.into(),
@@ -62,8 +62,8 @@ impl ProblemDetail {
 
     pub fn transfer_failed(addr: &str) -> Self {
         Self {
-            r#type: "https://stellar.org/horizon-errors/transaction_failed".into(),
-            title: "Transfer Failed".into(),
+            r#type: "https://stellar.org/friendbot-errors/transaction_failed".into(),
+            title: "Transaction Failed".into(),
             status: 400,
             detail: format!("Transfer to {addr} returned false"),
         }
@@ -80,26 +80,26 @@ mod tests {
     fn test_invalid_address_fields() {
         let p = ProblemDetail::invalid_address("bad addr");
         assert_eq!(p.status, 400);
-        assert_eq!(p.title, "Invalid Address");
+        assert_eq!(p.title, "Bad Request");
         assert!(p.detail.contains("bad addr"));
-        assert!(p.r#type.contains("bad_request"));
+        assert!(p.r#type.contains("friendbot-errors/bad_request"));
     }
 
     #[test]
     fn test_already_pending_fields() {
         let p = ProblemDetail::already_pending("GABC");
         assert_eq!(p.status, 409);
-        assert_eq!(p.title, "Already Pending");
+        assert_eq!(p.title, "Bad Request");
         assert!(p.detail.contains("GABC"));
-        assert!(p.r#type.contains("conflict"));
+        assert!(p.r#type.contains("friendbot-errors/bad_request"));
     }
 
     #[test]
     fn test_queue_full_fields() {
         let p = ProblemDetail::queue_full();
         assert_eq!(p.status, 503);
-        assert_eq!(p.title, "Queue Full");
-        assert!(p.r#type.contains("service_unavailable"));
+        assert_eq!(p.title, "Bad Request");
+        assert!(p.r#type.contains("friendbot-errors/bad_request"));
     }
 
     #[test]
@@ -114,7 +114,7 @@ mod tests {
     fn test_transfer_failed_fields() {
         let p = ProblemDetail::transfer_failed("GXYZ");
         assert_eq!(p.status, 400);
-        assert_eq!(p.title, "Transfer Failed");
+        assert_eq!(p.title, "Transaction Failed");
         assert!(p.detail.contains("GXYZ"));
     }
 
@@ -132,7 +132,7 @@ mod tests {
         let body = response.into_body().collect().await.unwrap().to_bytes();
         let json: serde_json::Value = serde_json::from_slice(&body).unwrap();
         assert_eq!(json["status"], 400);
-        assert_eq!(json["title"], "Invalid Address");
+        assert_eq!(json["title"], "Bad Request");
     }
 
     #[tokio::test]

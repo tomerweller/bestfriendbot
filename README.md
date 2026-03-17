@@ -81,13 +81,17 @@ On startup the faucet verifies the contract is deployed and the funding account 
 
 ### `GET/POST /?addr=G...`
 
-Request tokens for a Stellar address. The request blocks until the next batch is processed and returns:
+Request tokens for a Stellar address. The request blocks until the next batch is processed. The response format matches the Stellar friendbot:
 
 ```json
-{ "tx_hash": "abc123..." }
+{
+  "successful": true,
+  "hash": "abc123...",
+  "envelope_xdr": "AAAA..."
+}
 ```
 
-Errors use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) problem detail format:
+Errors use [RFC 7807](https://datatracker.ietf.org/doc/html/rfc7807) problem detail format (matching friendbot error style):
 - **400** — Invalid address or transfer failed
 - **409** — Address already pending in queue
 - **503** — Queue full
@@ -98,10 +102,12 @@ Returns service status, queue size, contract/token addresses, and batch configur
 
 ## Testing
 
-Run the full integration test on testnet (requires `stellar`, `cargo`, `curl`, `jq`):
-
 ```bash
+# Unit tests (fast, offline)
+cargo test -p faucet
+
+# End-to-end integration test on testnet (requires stellar, cargo, curl, jq)
 ./test_faucet.sh
 ```
 
-This creates accounts, deploys the contract, sets up a test token, starts the faucet, sends concurrent funding requests, and verifies recipient balances.
+The integration test creates accounts, deploys the contract, sets up a test token, starts the faucet, sends 10 staggered funding requests, and verifies recipient balances.

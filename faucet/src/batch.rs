@@ -50,7 +50,7 @@ async fn dispatch_batch(
     .await;
 
     match result {
-        Ok((tx_hash, results)) => {
+        Ok((tx_hash, envelope_xdr, results)) => {
             info!(tx_hash = %tx_hash, count = entries.len(), "Batch transfer succeeded");
 
             // If we got per-entry results, use them; otherwise assume all succeeded
@@ -60,8 +60,9 @@ async fn dispatch_batch(
                 let succeeded = if has_per_entry { results[i] } else { true };
                 let response = if succeeded {
                     Ok(SuccessResponse {
+                        successful: true,
                         hash: tx_hash.clone(),
-                        address: entry.address.clone(),
+                        envelope_xdr: envelope_xdr.clone(),
                     })
                 } else {
                     Err(ProblemDetail::transfer_failed(&entry.address))

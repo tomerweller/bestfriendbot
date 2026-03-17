@@ -137,7 +137,7 @@ pub async fn invoke_batch_transfer(
     contract_address: &str,
     token_address: &str,
     receivers: &[(String, i128)],
-) -> Result<(String, Vec<bool>), TxError> {
+) -> Result<(String, String, Vec<bool>), TxError> {
     let sender_sc = ScVal::Address(g_address_to_sc_address(source_account)?);
     let token_sc = ScVal::Address(c_address_to_sc_address(token_address)?);
 
@@ -228,7 +228,12 @@ pub async fn invoke_batch_transfer(
         vec![true; receivers.len()]
     };
 
-    Ok((tx_hash, results))
+    // Serialize the signed envelope to base64 XDR
+    let envelope_xdr = signed_envelope
+        .to_xdr_base64(Limits::none())
+        .map_err(|e| format!("Failed to encode envelope XDR: {e}"))?;
+
+    Ok((tx_hash, envelope_xdr, results))
 }
 
 fn assemble_transaction(

@@ -130,8 +130,9 @@ mod tests {
             assert_eq!(entries.len(), 1);
             for entry in entries {
                 let _ = entry.responder.send(Ok(SuccessResponse {
+                    successful: true,
                     hash: "abc123".into(),
-                    address: entry.address,
+                    envelope_xdr: "AAAA".into(),
                 }));
             }
         });
@@ -149,8 +150,9 @@ mod tests {
         assert_eq!(response.status(), 200);
         let body = response.into_body().collect().await.unwrap().to_bytes();
         let json: serde_json::Value = serde_json::from_slice(&body).unwrap();
+        assert_eq!(json["successful"], true);
         assert_eq!(json["hash"], "abc123");
-        assert_eq!(json["address"], VALID_G);
+        assert_eq!(json["envelope_xdr"], "AAAA");
     }
 
     #[tokio::test]

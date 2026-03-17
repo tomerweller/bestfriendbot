@@ -4,8 +4,9 @@ use tokio::sync::oneshot;
 
 #[derive(Debug, Serialize, Clone)]
 pub struct SuccessResponse {
+    pub successful: bool,
     pub hash: String,
-    pub address: String,
+    pub envelope_xdr: String,
 }
 
 pub struct PendingEntry {
@@ -76,7 +77,7 @@ mod tests {
         let _rx = q.enqueue("GABC".into()).unwrap();
         let err = q.enqueue("GABC".into()).unwrap_err();
         assert_eq!(err.status, 409);
-        assert_eq!(err.title, "Already Pending");
+        assert_eq!(err.title, "Bad Request");
     }
 
     #[test]
@@ -86,7 +87,7 @@ mod tests {
         let _rx2 = q.enqueue("G2".into()).unwrap();
         let err = q.enqueue("G3".into()).unwrap_err();
         assert_eq!(err.status, 503);
-        assert_eq!(err.title, "Queue Full");
+        assert_eq!(err.title, "Bad Request");
     }
 
     #[test]
