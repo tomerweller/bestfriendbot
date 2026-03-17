@@ -32,8 +32,9 @@ Incoming funding requests are queued and drained every 5 seconds. The batch proc
 │       ├── batch.rs         # Background batch processing loop
 │       ├── tx.rs            # Transaction building, signing, submission
 │       └── error.rs         # RFC 7807 problem detail error responses
-├── test_faucet.sh           # End-to-end integration test on testnet
-└── submit_every_ledger.sh   # Ledger timing measurement utility
+└── scripts/
+    ├── test_faucet.sh         # End-to-end integration test on testnet
+    └── submit_every_ledger.sh # Ledger timing measurement utility
 ```
 
 ## Configuration
@@ -107,7 +108,7 @@ Returns service status, queue size, contract/token addresses, and batch configur
 cargo test -p faucet
 
 # End-to-end integration test on testnet (requires stellar, cargo, curl, jq)
-./test_faucet.sh
+./scripts/test_faucet.sh
 ```
 
 The integration test creates accounts, deploys the contract, sets up a test token, starts the faucet, sends 10 staggered funding requests, and verifies recipient balances.
