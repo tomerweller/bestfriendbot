@@ -843,6 +843,7 @@ dependencies = [
  "axum",
  "ed25519-dalek",
  "hex",
+ "http-body-util",
  "serde",
  "serde_json",
  "sha2",
@@ -850,6 +851,7 @@ dependencies = [
  "stellar-strkey 0.0.11",
  "stellar-xdr",
  "tokio",
+ "tower 0.5.3",
  "tracing",
  "tracing-subscriber",
 ]

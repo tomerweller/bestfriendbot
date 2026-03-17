@@ -17,3 +17,8 @@ sha2 = "0.10"
 hex = "0.4"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["test-util", "macros"] }
+tower = { version = "0.5", features = ["util"] }
+http-body-util = "0.1"

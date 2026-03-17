@@ -36,19 +36,19 @@ impl From<&str> for TxError {
     }
 }
 
-fn g_address_to_muxed(addr: &str) -> Result<MuxedAccount, TxError> {
+pub(crate) fn g_address_to_muxed(addr: &str) -> Result<MuxedAccount, TxError> {
     let pk = stellar_strkey::ed25519::PublicKey::from_string(addr)
         .map_err(|e| format!("Invalid G address {addr}: {e}"))?;
     Ok(MuxedAccount::Ed25519(Uint256(pk.0)))
 }
 
-fn c_address_to_sc_address(addr: &str) -> Result<ScAddress, TxError> {
+pub(crate) fn c_address_to_sc_address(addr: &str) -> Result<ScAddress, TxError> {
     let contract = stellar_strkey::Contract::from_string(addr)
         .map_err(|e| format!("Invalid C address {addr}: {e}"))?;
     Ok(ScAddress::Contract(ContractId(Hash(contract.0))))
 }
 
-fn g_address_to_sc_address(addr: &str) -> Result<ScAddress, TxError> {
+pub(crate) fn g_address_to_sc_address(addr: &str) -> Result<ScAddress, TxError> {
     let pk = stellar_strkey::ed25519::PublicKey::from_string(addr)
         .map_err(|e| format!("Invalid G address {addr}: {e}"))?;
     Ok(ScAddress::Account(AccountId(
@@ -56,14 +56,14 @@ fn g_address_to_sc_address(addr: &str) -> Result<ScAddress, TxError> {
     )))
 }
 
-fn i128_to_sc_val(v: i128) -> ScVal {
+pub(crate) fn i128_to_sc_val(v: i128) -> ScVal {
     ScVal::I128(xdr::Int128Parts {
         hi: (v >> 64) as i64,
         lo: v as u64,
     })
 }
 
-fn build_receiver_sc_val(addr: &str, amount: i128) -> Result<ScVal, TxError> {
+pub(crate) fn build_receiver_sc_val(addr: &str, amount: i128) -> Result<ScVal, TxError> {
     let sc_addr = g_address_to_sc_address(addr)?;
     let map = ScMap(
         vec![
@@ -299,7 +299,7 @@ fn assemble_transaction(
     }))
 }
 
-fn sign_envelope(
+pub(crate) fn sign_envelope(
     envelope: &TransactionEnvelope,
     signing_key: &ed25519_dalek::SigningKey,
     network_passphrase: &str,
@@ -354,7 +354,7 @@ fn sign_envelope(
     Ok(signed)
 }
 
-fn parse_results_from_meta(meta: &xdr::TransactionMeta, receiver_count: usize) -> Vec<bool> {
+pub(crate) fn parse_results_from_meta(meta: &xdr::TransactionMeta, receiver_count: usize) -> Vec<bool> {
     if let xdr::TransactionMeta::V3(v3) = meta {
         if let Some(ref soroban_meta) = v3.soroban_meta {
             if let ScVal::Vec(Some(vec)) = &soroban_meta.return_value {
@@ -368,4 +368,198 @@ fn parse_results_from_meta(meta: &xdr::TransactionMeta, receiver_count: usize) -
     }
     // If we can't parse, assume all succeeded (tx was successful)
     vec![true; receiver_count]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    // A valid testnet G address (well-formed, 56 chars)
+    const VALID_G: &str = "GAAZI4TCR3TY5OJHCTJC2A4QSY6CJWJH5IAJTGKIN2ER7LBNVKOCCWN7";
+    // A valid testnet C address
+    const VALID_C: &str = "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC";
+
+    #[test]
+    fn test_g_address_to_sc_address_valid() {
+        let result = g_address_to_sc_address(VALID_G);
+        assert!(result.is_ok());
+        match result.unwrap() {
+            ScAddress::Account(_) => {} // expected
+            other => panic!("Expected ScAddress::Account, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_g_address_to_sc_address_invalid() {
+        let result = g_address_to_sc_address("GINVALID");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_c_address_to_sc_address_valid() {
+        let result = c_address_to_sc_address(VALID_C);
+        assert!(result.is_ok());
+        match result.unwrap() {
+            ScAddress::Contract(_) => {} // expected
+            other => panic!("Expected ScAddress::Contract, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_c_address_to_sc_address_invalid() {
+        let result = c_address_to_sc_address("CINVALID");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_g_address_to_muxed_valid() {
+        let result = g_address_to_muxed(VALID_G);
+        assert!(result.is_ok());
+        match result.unwrap() {
+            MuxedAccount::Ed25519(_) => {}
+            other => panic!("Expected MuxedAccount::Ed25519, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_g_address_to_muxed_invalid() {
+        let result = g_address_to_muxed("not-a-valid-address");
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_i128_zero() {
+        let val = i128_to_sc_val(0);
+        match val {
+            ScVal::I128(parts) => {
+                assert_eq!(parts.hi, 0);
+                assert_eq!(parts.lo, 0);
+            }
+            other => panic!("Expected ScVal::I128, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_i128_large() {
+        let large: i128 = 1_000_000_000_000_000_000; // 1e18
+        let val = i128_to_sc_val(large);
+        match val {
+            ScVal::I128(parts) => {
+                let reconstructed = ((parts.hi as i128) << 64) | (parts.lo as i128);
+                assert_eq!(reconstructed, large);
+            }
+            other => panic!("Expected ScVal::I128, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_build_receiver_sc_val() {
+        let result = build_receiver_sc_val(VALID_G, 1000);
+        assert!(result.is_ok());
+        match result.unwrap() {
+            ScVal::Map(Some(map)) => {
+                assert_eq!(map.0.len(), 2);
+                // First entry should be "address"
+                match &map.0[0].key {
+                    ScVal::Symbol(s) => assert_eq!(s.0.to_string(), "address"),
+                    other => panic!("Expected Symbol key, got {other:?}"),
+                }
+                // Second entry should be "amount"
+                match &map.0[1].key {
+                    ScVal::Symbol(s) => assert_eq!(s.0.to_string(), "amount"),
+                    other => panic!("Expected Symbol key, got {other:?}"),
+                }
+            }
+            other => panic!("Expected ScVal::Map, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_build_receiver_sc_val_invalid_address() {
+        let result = build_receiver_sc_val("GINVALID", 1000);
+        assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_sign_envelope_produces_signature() {
+        // Build a minimal unsigned envelope
+        let source = g_address_to_muxed(VALID_G).unwrap();
+        let tx = Transaction {
+            source_account: source,
+            fee: 100,
+            seq_num: SequenceNumber(1),
+            cond: Preconditions::None,
+            memo: Memo::None,
+            operations: vec![Operation {
+                source_account: None,
+                body: OperationBody::Inflation,
+            }]
+            .try_into()
+            .unwrap(),
+            ext: TransactionExt::V0,
+        };
+        let envelope = TransactionEnvelope::Tx(TransactionV1Envelope {
+            tx,
+            signatures: Default::default(),
+        });
+
+        let signing_key = ed25519_dalek::SigningKey::from_bytes(&[1u8; 32]);
+        let result = sign_envelope(&envelope, &signing_key, "Test SDF Network ; September 2015");
+        assert!(result.is_ok());
+
+        match result.unwrap() {
+            TransactionEnvelope::Tx(v1) => {
+                assert_eq!(v1.signatures.len(), 1);
+            }
+            other => panic!("Expected Tx envelope, got {other:?}"),
+        }
+    }
+
+    #[test]
+    fn test_parse_results_from_v3_meta() {
+        // Build V3 meta with soroban return value of [true, false, true]
+        let return_value = ScVal::Vec(Some(ScVec(
+            vec![ScVal::Bool(true), ScVal::Bool(false), ScVal::Bool(true)]
+                .try_into()
+                .unwrap(),
+        )));
+        let soroban_meta = xdr::SorobanTransactionMeta {
+            ext: xdr::SorobanTransactionMetaExt::V0,
+            events: Default::default(),
+            return_value,
+            diagnostic_events: Default::default(),
+        };
+        let meta = xdr::TransactionMeta::V3(xdr::TransactionMetaV3 {
+            ext: xdr::ExtensionPoint::V0,
+            tx_changes_before: Default::default(),
+            operations: Default::default(),
+            tx_changes_after: Default::default(),
+            soroban_meta: Some(soroban_meta),
+        });
+
+        let results = parse_results_from_meta(&meta, 3);
+        assert_eq!(results, vec![true, false, true]);
+    }
+
+    #[test]
+    fn test_parse_results_fallback_non_v3() {
+        // V0 meta should fall back to all-true
+        let meta = xdr::TransactionMeta::V0(Default::default());
+        let results = parse_results_from_meta(&meta, 3);
+        assert_eq!(results, vec![true, true, true]);
+    }
+
+    #[test]
+    fn test_parse_results_fallback_no_soroban_meta() {
+        // V3 meta without soroban_meta should fall back
+        let meta = xdr::TransactionMeta::V3(xdr::TransactionMetaV3 {
+            ext: xdr::ExtensionPoint::V0,
+            tx_changes_before: Default::default(),
+            operations: Default::default(),
+            tx_changes_after: Default::default(),
+            soroban_meta: None,
+        });
+        let results = parse_results_from_meta(&meta, 2);
+        assert_eq!(results, vec![true, true]);
+    }
 }
