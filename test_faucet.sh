@@ -14,7 +14,7 @@ RPC_URL="https://soroban-testnet.stellar.org"
 NETWORK_PASSPHRASE="Test SDF Network ; September 2015"
 FAUCET_PORT=9876
 FAUCET_URL="http://localhost:${FAUCET_PORT}"
-NUM_RECEIVERS=5
+NUM_RECEIVERS=10
 AMOUNT=10000000          # 1 token (7 decimal places)
 FAUCET_PID=""
 FAUCET_LOG=""
@@ -238,17 +238,17 @@ phase4_start_faucet() {
 # Phase 5: Send concurrent funding requests
 # =============================================================================
 phase5_fund_receivers() {
-    info "Phase 5: Sending $NUM_RECEIVERS concurrent funding requests"
+    info "Phase 5: Sending $NUM_RECEIVERS funding requests (one every 2s)"
     echo "---"
 
     RESULT_DIR=$(mktemp -d)
 
-    # Fire all requests concurrently
+    # Fire requests staggered 2s apart
     PIDS=()
     for i in $(seq 1 "$NUM_RECEIVERS"); do
         local addr="${RECEIVER_PUBKEYS[$((i-1))]}"
         (
-            response=$(curl -s -w "\n%{http_code}" --max-time 30 "${FAUCET_URL}/?addr=${addr}")
+            response=$(curl -s -w "\n%{http_code}" --max-time 60 "${FAUCET_URL}/?addr=${addr}")
             http_code=$(echo "$response" | tail -1)
             body=$(echo "$response" | sed '$d')
             echo "$http_code" > "${RESULT_DIR}/${i}.status"
@@ -256,9 +256,12 @@ phase5_fund_receivers() {
         ) &
         PIDS+=($!)
         info "  Request $i sent for ${addr:0:10}..."
+        if [[ $i -lt $NUM_RECEIVERS ]]; then
+            sleep 2
+        fi
     done
 
-    info "Waiting for all requests to complete (this may take ~15s)..."
+    info "Waiting for all requests to complete..."
     for pid in "${PIDS[@]}"; do
         wait "$pid" || true
     done
@@ -285,6 +288,10 @@ phase5_fund_receivers() {
         fi
     done
 
+    # Report unique tx hashes (requests spread across multiple batches)
+    local unique_hashes
+    unique_hashes=$(cat "${RESULT_DIR}/"*.body 2>/dev/null | jq -r '.hash // empty' 2>/dev/null | sort -u | wc -l | tr -d ' ')
+
     rm -rf "$RESULT_DIR"
     echo ""
 
@@ -293,11 +300,7 @@ phase5_fund_receivers() {
         exit 1
     fi
     ok "All $NUM_RECEIVERS requests succeeded"
-
-    # Verify all requests were batched into one tx
-    if [[ -n "$TX_HASH" ]]; then
-        ok "All requests batched into tx: $TX_HASH"
-    fi
+    ok "Requests spread across $unique_hashes batch transaction(s)"
     echo ""
 }
 
