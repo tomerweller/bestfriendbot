@@ -65,22 +65,12 @@
                 {
                   "vec": [
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK3IM"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK3IM"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     }

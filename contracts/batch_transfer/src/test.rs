@@ -38,18 +38,9 @@ fn test_happy_path() {
 
     let receivers = vec![
         &env,
-        Receiver {
-            address: receiver1.clone(),
-            amount: 100,
-        },
-        Receiver {
-            address: receiver2.clone(),
-            amount: 200,
-        },
-        Receiver {
-            address: receiver3.clone(),
-            amount: 300,
-        },
+        (MuxedAddress::from(receiver1.clone()), 100_i128),
+        (MuxedAddress::from(receiver2.clone()), 200_i128),
+        (MuxedAddress::from(receiver3.clone()), 300_i128),
     ];
 
     let results = client.batch_transfer(&sender, &token.address, &receivers);
@@ -79,14 +70,8 @@ fn test_partial_failure() {
 
     let receivers = vec![
         &env,
-        Receiver {
-            address: receiver1.clone(),
-            amount: 100,
-        },
-        Receiver {
-            address: receiver2.clone(),
-            amount: 200,
-        },
+        (MuxedAddress::from(receiver1.clone()), 100_i128),
+        (MuxedAddress::from(receiver2.clone()), 200_i128),
     ];
 
     let results = client.batch_transfer(&sender, &token.address, &receivers);
@@ -108,7 +93,7 @@ fn test_empty_batch() {
     let contract_id = env.register(BatchTransferContract, ());
     let client = BatchTransferContractClient::new(&env, &contract_id);
 
-    let receivers: Vec<Receiver> = vec![&env];
+    let receivers: Vec<(MuxedAddress, i128)> = vec![&env];
     let results = client.batch_transfer(&sender, &token_addr, &receivers);
 
     assert_eq!(results, vec![&env]);
@@ -153,12 +138,9 @@ fn measure(n: u32) -> soroban_env_host::InvocationResources {
     let contract_id = env.register(BatchTransferContract, ());
     let client = BatchTransferContractClient::new(&env, &contract_id);
 
-    let mut receivers = vec![&env];
+    let mut receivers: Vec<(MuxedAddress, i128)> = vec![&env];
     for _ in 0..n {
-        receivers.push_back(Receiver {
-            address: Address::generate(&env),
-            amount: 100,
-        });
+        receivers.push_back((MuxedAddress::from(Address::generate(&env)), 100));
     }
 
     let _ = client.batch_transfer(&sender, &token.address, &receivers);

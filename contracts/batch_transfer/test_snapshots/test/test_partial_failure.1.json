@@ -65,42 +65,22 @@
                 {
                   "vec": [
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHK3M"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHK3M"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAITA4"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "200"
-                          }
+                          "i128": "200"
                         }
                       ]
                     }

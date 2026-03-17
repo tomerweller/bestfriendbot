@@ -65,502 +65,252 @@
                 {
                   "vec": [
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK3IM"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAK3IM"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDR4"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMDR4"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOLZM"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOLZM"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARQG5"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARQG5"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATYON"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATYON"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVAX5"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVAX5"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXI7N"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAXI7N"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYRE5"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYRE5"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2ZMN"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA2ZMN"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4BV5"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4BV5"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6J5N"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA6J5N"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABB6KO"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABB6KO"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDWC6"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABDWC6"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFO3O"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABFO3O"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHGT6"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABHGT6"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABI7IO"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABI7IO"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKXA6"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABKXA6"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMPZO"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABMPZO"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABOHR6"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABOHR6"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABR4OP"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABR4OP"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTUG7"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABTUG7"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVM7P"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVM7P"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABXEX7"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABXEX7"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABY5MP"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABY5MP"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     },
                     {
-                      "map": [
+                      "vec": [
                         {
-                          "key": {
-                            "symbol": "address"
-                          },
-                          "val": {
-                            "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB2VE7"
-                          }
+                          "address": "CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB2VE7"
                         },
                         {
-                          "key": {
-                            "symbol": "amount"
-                          },
-                          "val": {
-                            "i128": "100"
-                          }
+                          "i128": "100"
                         }
                       ]
                     }

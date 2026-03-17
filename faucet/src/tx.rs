@@ -141,10 +141,18 @@ pub async fn invoke_batch_transfer(
     let sender_sc = ScVal::Address(g_address_to_sc_address(source_account)?);
     let token_sc = ScVal::Address(c_address_to_sc_address(token_address)?);
 
+    // Build Vec<(MuxedAddress, i128)> — tuples are encoded as ScVec pairs
     let receiver_vals: Vec<ScVal> = receivers
         .iter()
-        .map(|(addr, amount)| build_receiver_sc_val(addr, *amount))
-        .collect::<Result<Vec<_>, _>>()?;
+        .map(|(addr, amount)| {
+            let addr_sc = ScVal::Address(g_address_to_sc_address(addr)?);
+            let amount_sc = i128_to_sc_val(*amount);
+            let tuple = ScVal::Vec(Some(ScVec(
+                vec![addr_sc, amount_sc].try_into().unwrap(),
+            )));
+            Ok(tuple)
+        })
+        .collect::<Result<Vec<_>, TxError>>()?;
     let receivers_sc = ScVal::Vec(Some(ScVec(receiver_vals.try_into().unwrap())));
 
     let contract_sc_address = c_address_to_sc_address(contract_address)?;

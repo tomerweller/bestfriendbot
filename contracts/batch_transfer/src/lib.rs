@@ -1,15 +1,5 @@
 #![no_std]
-use soroban_sdk::{
-    contract, contractimpl, contracttype, vec, Address, Env, IntoVal, InvokeError, Symbol, Val,
-    Vec,
-};
-
-#[contracttype]
-#[derive(Clone, Debug)]
-pub struct Receiver {
-    pub address: Address,
-    pub amount: i128,
-}
+use soroban_sdk::{contract, contractimpl, token, vec, Address, Env, MuxedAddress, Vec};
 
 #[contract]
 pub struct BatchTransferContract;
@@ -20,22 +10,15 @@ impl BatchTransferContract {
         env: Env,
         sender: Address,
         token: Address,
-        receivers: Vec<Receiver>,
+        receivers: Vec<(MuxedAddress, i128)>,
     ) -> Vec<bool> {
         sender.require_auth();
 
-        let transfer_fn = Symbol::new(&env, "transfer");
+        let client = token::TokenClient::new(&env, &token);
         let mut results = vec![&env];
 
-        for receiver in receivers.iter() {
-            let args: Vec<Val> = vec![
-                &env,
-                sender.to_val(),
-                receiver.address.to_val(),
-                receiver.amount.into_val(&env),
-            ];
-            let result =
-                env.try_invoke_contract::<(), InvokeError>(&token, &transfer_fn, args);
+        for (to, amount) in receivers.iter() {
+            let result = client.try_transfer(&sender, &to, &amount);
             results.push_back(result.is_ok());
         }
 
